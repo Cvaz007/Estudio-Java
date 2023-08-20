@@ -1,4 +1,4 @@
-package org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.map;
+package org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.map;
 
 import java.util.Comparator;
 import java.util.Map;

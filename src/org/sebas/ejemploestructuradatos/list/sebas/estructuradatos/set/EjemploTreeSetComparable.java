@@ -1,8 +1,8 @@
-package org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.set;
+package org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.set;
 
 
 
-import org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.modelo.Alumno;
+import org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.modelo.Alumno;
 
 import java.util.Set;
 import java.util.TreeSet;

@@ -1,4 +1,4 @@
-package org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.modelo;
+package org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.modelo;
 
 import java.util.Objects;
 

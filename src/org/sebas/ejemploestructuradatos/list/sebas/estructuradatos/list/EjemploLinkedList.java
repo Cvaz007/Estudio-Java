@@ -1,8 +1,8 @@
-package org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.list;
+package org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.list;
 
 
 
-import org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.modelo.Alumno;
+import org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.modelo.Alumno;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

@@ -1,4 +1,4 @@
-package org.sebas.ejemploestructuradatos.list.sebas.ejemploestructuradatos.set;
+package org.sebas.ejemploestructuradatos.list.sebas.estructuradatos.set;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,6 +1,5 @@
 package org.sebas.generico.carrosupermecado;
 
-import org.sebas.ejemploestructuradatos.list.sebas.generico.carrosupermecado.modelo.*;
 import org.sebas.generico.carrosupermecado.modelo.*;
 
 public class Main {

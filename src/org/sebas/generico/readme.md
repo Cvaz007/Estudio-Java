@@ -1,1 +1,0 @@
-Los genericos los aplique el la carpeta de interfaces, puesto que los productos tienen una clase base que implica genericos.

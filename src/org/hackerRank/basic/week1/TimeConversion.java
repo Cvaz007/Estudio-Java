@@ -1,4 +1,4 @@
-package org.hackerRank.basic;
+package org.hackerRank.basic.week1;
 
 import java.util.Scanner;
 /*

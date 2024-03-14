@@ -7,50 +7,69 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountService {
-    private ArrayList<Account> accounts;
+    private final ArrayList<Account> accounts = new ArrayList<>();
+    private boolean state;
     Scanner objScanner = new Scanner(System.in);
 
-    public AccountService(ArrayList<Account> accounts) {
-        this.accounts = accounts;
+    public ArrayList<Account> getAccounts() {
+        return accounts;
     }
 
-    public void createAccount() {
+    public Account registerAccount() {
         System.out.print("Enter your email:");
         String email = objScanner.next();
         System.out.print("Enter your password:");
         String password = objScanner.next();
-        System.out.print("Enter your rol ");
+        System.out.print("Enter your rol:");
         String rol = objScanner.next();
         String id = String.valueOf(System.currentTimeMillis());
 
-        Account account = new Account();
-        account = getAccount(email);
+        Account account = getAccountByEmail(email);
 
-        if (account!= null){
-            if (rol.equalsIgnoreCase("client")){
+        if (account == null) {
+            if (rol.equalsIgnoreCase("client")) {
                 Rol rolEmun = Rol.CLIENT;
-                account = new Account(id, email, password,rolEmun);
-            }else if (rol.equalsIgnoreCase("deliveryman")){
+                account = new Account(id, email, password, rolEmun);
+            } else if (rol.equalsIgnoreCase("deliveryman")) {
                 Rol rolEmun = Rol.DELIVERYMAN;
-                account = new Account(id, email, password,rolEmun);
+                account = new Account(id, email, password, rolEmun);
             }
             accounts.add(account);
-        }else System.out.println("This email address has already");
 
-
+        } else System.out.println("This email address has already");
+        return account;
     }
-    public boolean verifyAccount(String email,String password){
-        Account account = getAccount(email);
-        if( account.getPassword().equalsIgnoreCase(password))
+
+    public boolean loginAccount(String email, String password) {
+        Account account = getAccountByEmail(email);
+        if (account != null && account.getPassword().equalsIgnoreCase(password)) {
+            state = true;
             return true;
+        }
         return false;
     }
-    public Account getAccount(String email){
-        for (Account account : accounts){
-            if (account.getEmail().equals(email)){
-                return account;
+
+    public Account getAccountByEmail(String email) {
+        if (!accounts.isEmpty()) {
+            for (Account account : accounts) {
+                if (account.getEmail().equals(email)) {
+                    return account;
+                }
             }
         }
         return null;
+    }
+
+    public void logOut() {
+        state = false;
+    }
+
+    public void showAccounts() {
+        for (Account account : accounts) {
+            System.out.println("Name:" + account.getEmail());
+            System.out.println("Id:" + account.getId());
+            System.out.println("Rol:" + account.getRol());
+            System.out.println();
+        }
     }
 }

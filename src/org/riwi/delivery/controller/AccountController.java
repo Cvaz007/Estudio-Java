@@ -27,6 +27,10 @@ public class AccountController {
         accountService.showAccounts();
     }
 
+    public Account getAccountByEmail(String email) {
+        return accountService.getAccountByEmail(email);
+    }
+
     public ArrayList<Account> getAccounts() {
         return accountService.getAccounts();
     }

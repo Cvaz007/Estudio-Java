@@ -16,21 +16,16 @@ public class ClientService {
         if (currentClient != null) {
             System.out.print("Enter your new address:");
             String newAddress = objScanner.next();
-            System.out.print("Enter your new email:");
-            String email = objScanner.next();
-            System.out.print("Enter your new password:");
-            String password = objScanner.next();
             System.out.print("Enter your new name:");
             String name = objScanner.next();
             System.out.print("Enter your new phone:");
             String phone = objScanner.next();
 
             currentClient.setAddress(newAddress);
-            currentClient.setEmail(email);
             currentClient.setName(name);
             currentClient.setPhone(phone);
-            currentClient.setPassword(password);
 
+            show();
         } else System.out.println("This user doesn't exist");
     }
 

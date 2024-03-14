@@ -1,5 +1,6 @@
 package org.riwi.delivery.service;
 
+import org.riwi.delivery.controller.ProductController;
 import org.riwi.delivery.model.Status;
 import org.riwi.delivery.model.entity.Order;
 import org.riwi.delivery.model.entity.PayMethodImpl;
@@ -11,14 +12,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrderService {
+    private final ArrayList<Order> orders = new ArrayList<>();
     private final Scanner objScanner = new Scanner(System.in);
 
     public Order createOrder(String clientId) {
         String id = String.valueOf(System.currentTimeMillis());
         String date = LocalDate.now().toString();
         Status statusEmun = Status.INCOMPLE;
-
-        return new Order(clientId, id, date, statusEmun);
+        Order order = new Order(clientId, date,id, statusEmun);
+        orders.add(order);
+        return order;
     }
 
     public void selectPayMethod(Order order) {
@@ -27,17 +30,16 @@ public class OrderService {
         order.setPayMethod(new PayMethodImpl(payMethod));
     }
 
-    public void addProduct(ProductService objProduct, Order order) {
+    public void addProduct(ProductController objProduct, Order order) {
         ArrayList<Product> products = new ArrayList<Product>();
         String option = "si";
         while (option.equalsIgnoreCase("si")) {
             objProduct.showProducts();
             System.out.print("Ingresa el id del producto:");
             String id = objScanner.next();
-
+            products.add(objProduct.getProductById(id));
             System.out.println("¿Vas agregar mas productos?");
             option = objScanner.next();
-            if (option.equalsIgnoreCase("si")) break;
         }
         order.setListProducts(products);
         order.setTotalPrice(calculateTotal(products));
@@ -59,5 +61,21 @@ public class OrderService {
     }
     public void finishOrder(Order order){
         order.setStatus(Status.COMPLETED);
+    }
+
+    public void showOrders(){
+        for (Order order:orders){
+            System.out.println("Order:" + order.getId());
+            System.out.println("Status:"+order.getStatus());
+        }
+    }
+
+    public Order getOrderById(String id) {
+        for (Order order:orders){
+            if (order.getId().equalsIgnoreCase(id)){
+                return order;
+            }
+        }
+        return  null;
     }
 }

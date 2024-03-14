@@ -37,6 +37,7 @@ public class AccountService {
             accounts.add(account);
 
         } else System.out.println("This email address has already");
+        System.out.println("Your id is:"+id);
         return account;
     }
 
@@ -52,7 +53,7 @@ public class AccountService {
     public Account getAccountByEmail(String email) {
         if (!accounts.isEmpty()) {
             for (Account account : accounts) {
-                if (account.getEmail().equals(email)) {
+                if (account.getEmail().equalsIgnoreCase(email)) {
                     return account;
                 }
             }

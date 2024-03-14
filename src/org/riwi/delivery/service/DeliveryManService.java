@@ -56,6 +56,17 @@ public class DeliveryManService {
         }
         return null;
     }
+    public DeliveryMan getDeliveryManByEmail(String email) {
+        if (!deliveriesMen.isEmpty()) {
+            for (DeliveryMan deliveryMan : deliveriesMen) {
+                System.out.println(deliveryMan.getId());
+                if (deliveryMan.getEmail().equalsIgnoreCase(email)) {
+                    return deliveryMan;
+                }
+            }
+        }
+        return null;
+    }
 
     public void show() {
         for (DeliveryMan deliveryMan : deliveriesMen) {
@@ -65,8 +76,8 @@ public class DeliveryManService {
         }
     }
 
-    public void inactiveClient(String id) {
-        DeliveryMan currentDeliveryMan = getDeliveryManById(id);
+    public void inactiveClient(String email) {
+        DeliveryMan currentDeliveryMan = getDeliveryManByEmail(email);
         if (currentDeliveryMan != null) {
             inactiveDeliveriesMen.add(currentDeliveryMan);
             deliveriesMen.remove(currentDeliveryMan);

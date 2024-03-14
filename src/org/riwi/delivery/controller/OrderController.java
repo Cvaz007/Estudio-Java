@@ -15,7 +15,7 @@ public class OrderController {
         service.selectPayMethod(order);
     }
 
-    public void addProduct(ProductService objProduct, Order order) {
+    public void addProduct(ProductController objProduct, Order order) {
         service.addProduct(objProduct, order);
     }
 
@@ -29,5 +29,13 @@ public class OrderController {
 
     public void finishOrder(Order order) {
         service.finishOrder(order);
+    }
+
+    public void showOrders() {
+        service.showOrders();
+    }
+
+    public Order getOrderById(String id) {
+        return service.getOrderById(id);
     }
 }

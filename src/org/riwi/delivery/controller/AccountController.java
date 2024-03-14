@@ -10,22 +10,24 @@ public class AccountController {
     private final AccountService accountService = new AccountService();
     private final ClientController clientController = new ClientController();
     Scanner objScanner = new Scanner(System.in);
-    public boolean login(String email,String password){
-        return accountService.loginAccount(email,password);
+
+    public boolean login(String email, String password) {
+        return accountService.loginAccount(email, password);
     }
 
-    public Account register(){
+    public Account register() {
         return accountService.registerAccount();
     }
 
-    public void logOut(){
+    public void logOut() {
         accountService.logOut();
     }
 
-    public void show(){
+    public void show() {
         accountService.showAccounts();
     }
-    public ArrayList<Account> getAccounts(){
+
+    public ArrayList<Account> getAccounts() {
         return accountService.getAccounts();
     }
 }

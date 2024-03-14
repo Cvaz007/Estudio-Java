@@ -9,13 +9,15 @@ import java.util.ArrayList;
 public class ClientController {
     private final ClientService clientService = new ClientService();
 
-    public void update(String id){
+    public void update(String id) {
         clientService.updateClient(id);
     }
-    public void inactive(String id){
+
+    public void inactive(String id) {
         clientService.inactiveClient(id);
     }
-    public void create (Account account){
+
+    public void create(Account account) {
         clientService.createClient(account);
     }
 }

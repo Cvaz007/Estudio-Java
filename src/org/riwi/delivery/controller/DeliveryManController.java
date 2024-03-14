@@ -6,13 +6,15 @@ import org.riwi.delivery.service.DeliveryManService;
 public class DeliveryManController {
     private final DeliveryManService deliveryManService = new DeliveryManService();
 
-    public void update(String id){
+    public void update(String id) {
         deliveryManService.updateDeliveryMan(id);
     }
-    public void inactive(String id){
+
+    public void inactive(String id) {
         deliveryManService.inactiveClient(id);
     }
-    public void create (Account account){
+
+    public void create(Account account) {
         deliveryManService.createClient(account);
     }
 }

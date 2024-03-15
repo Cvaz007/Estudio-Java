@@ -19,6 +19,10 @@ public class User extends Account{
         this.orderHistory = orderHistory;
     }
 
+    public User(String id, String email, String password, Rol rol) {
+        super(id, email, password, rol);
+    }
+
     public String getName() {
         return name;
     }

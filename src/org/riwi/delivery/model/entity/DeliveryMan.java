@@ -14,6 +14,10 @@ public class DeliveryMan extends User{
     public DeliveryMan() {
     }
 
+    public DeliveryMan(String id, String email, String password, Rol rol) {
+        super(id, email, password, rol);
+    }
+
     public DeliveryMan(String id, String email, String password, Rol rol, String name, String phone, ArrayList<Order> orderHistory, String vehicle, String plate, String document, Status status) {
         super(id, email, password, rol, name, phone, orderHistory);
         this.vehicle = vehicle;

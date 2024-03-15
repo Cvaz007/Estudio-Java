@@ -10,6 +10,10 @@ public class Client extends User{
     public Client() {
     }
 
+    public Client(String id, String email, String password, Rol rol) {
+        super(id, email, password, rol);
+    }
+
     public Client(String id, String email, String password, Rol rol, String name, String phone, ArrayList<Order> orderHistory, String address) {
         super(id, email, password, rol, name, phone, orderHistory);
         this.address = address;

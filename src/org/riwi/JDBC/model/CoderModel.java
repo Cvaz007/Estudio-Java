@@ -62,7 +62,7 @@ public class CoderModel implements CRUD {
             throw new RuntimeException(e);
         }
         ConfigurationDB.closeConnection();
-        return false;
+        return true;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class CoderModel implements CRUD {
 
         try{
             String sql = "DELETE FROM coder WHERE id = ?;";
-            PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
             statement.setInt(1,id);
 
             statement.execute();

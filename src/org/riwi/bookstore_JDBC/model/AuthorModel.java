@@ -1,6 +1,7 @@
 package org.riwi.bookstore_JDBC.model;
 
-import org.riwi.JDBC.connection.ConfigurationDB;
+
+import org.riwi.bookstore_JDBC.configuration.ConfigurationDB;
 import org.riwi.bookstore_JDBC.entity.Author;
 import org.riwi.bookstore_JDBC.repository.AuthorRepository;
 
@@ -35,10 +36,11 @@ public class AuthorModel implements AuthorRepository {
     public boolean insertAuthor(Author author) {
         objConnection = ConfigurationDB.openConnection();
         try {
-            String sql = "INSERT INTO author (name, nationality) VALUES (?,?);";
+            String sql = "INSERT INTO author (id,name, nationality) VALUES (?,?,?);";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setString(1, author.getName());
-            statement.setString(2, author.getNationality());
+            statement.setString(1, author.getId());
+            statement.setString(2, author.getName());
+            statement.setString(3, author.getNationality());
 
             statement.execute();
 
@@ -112,6 +114,31 @@ public class AuthorModel implements AuthorRepository {
                 String id = resultSet.getString("id");
 
                 author = new Author(id, name, nationality);
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        ConfigurationDB.closeConnection();
+        return author;
+    }
+
+    @Override
+    public Author getAuthorByName(String name) {
+        objConnection = ConfigurationDB.openConnection();
+        Author author;
+        try {
+            String sql = "SELECT * FROM author WHERE author.name = " + name + ";";
+            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+
+                resultSet.next();
+
+                String nameNew = resultSet.getString("name");
+                String nationality = resultSet.getString("nationality");
+                String id = resultSet.getString("id");
+
+                author = new Author(id, nameNew, nationality);
 
             }
         } catch (Exception e) {

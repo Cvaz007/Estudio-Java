@@ -15,7 +15,6 @@ public class ConfigurationDB {
     public ConfigurationDB() {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connection was successful");
         } catch (SQLException e) {
             System.err.println("Connection failed");
         }
@@ -29,7 +28,6 @@ public class ConfigurationDB {
         if (connection != null) {
             try {
                 connection.close();
-                System.out.println("Connection was closed successfully");
             } catch (SQLException e) {
                 System.err.println("Connection failed. " + e.getMessage());
             }
@@ -47,7 +45,6 @@ public class ConfigurationDB {
 
             connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
 
-            System.out.println("Connection was successful");
         } catch (ClassNotFoundException e) {
             System.err.println("Error. Driver not found");
         } catch (SQLException e) {

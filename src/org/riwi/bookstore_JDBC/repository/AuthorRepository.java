@@ -10,4 +10,5 @@ public interface AuthorRepository {
     boolean updateAuthor(Author author);
     List<Author> getAllAuthors();
     Author getAuthorById(String authorId);
+    Author getAuthorByName(String name);
 }

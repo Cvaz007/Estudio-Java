@@ -13,15 +13,6 @@ public class Main {
         Scanner objScnner = new Scanner(System.in);
 
 
-        //System.out.println("-------=== LIST ONE CODER ===-------------");
-        //controller.getById(1);
-
-        //Coder coder = new Coder("Juancho", 18, "Jobs");
-        //controller.insert(coder);
-
-        //Coder coder = new Coder(1,"Keiber Alimaña", 29, "Meta");
-        // controller.update(coder);
-
         controller.delete(8);
         int option = 0, age, id;
         String name, clan;

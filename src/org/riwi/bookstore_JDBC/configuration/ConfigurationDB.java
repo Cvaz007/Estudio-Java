@@ -7,9 +7,9 @@ import java.sql.SQLException;
 //! This class will be charge of establishing a connection and close the connection with the database.
 public class ConfigurationDB {
     public static Connection connection;
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234*";
-    private static final String URL = "jdbc:mysql://localhost:3306/bookstore";
+    private static final String USER = "uojvbdsxfwdczgbr";
+    private static final String PASSWORD = "DazyValQoy1rmavnjJPG";
+    private static final String URL = "jdbc:mysql://bfybdqrcot9xmax6zpsg-mysql.services.clever-cloud.com:3306/bfybdqrcot9xmax6zpsg";
     //This is my way to connect
 
     public ConfigurationDB() {
@@ -39,9 +39,9 @@ public class ConfigurationDB {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost:3306/bookstore";
-            String user = "root";
-            String password = "1234*";
+            String url = "jdbc:mysql://bfybdqrcot9xmax6zpsg-mysql.services.clever-cloud.com:3306/bfybdqrcot9xmax6zpsg";
+            String user = "uojvbdsxfwdczgbr";
+            String password = "DazyValQoy1rmavnjJPG";
 
             connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
 

@@ -90,9 +90,9 @@ public class Main {
                     3. Delete an book.
                     4. List all books.
                     5. List book by id
-                    6. List book by name.
+                    6. List book by author name.
                     7. List book by title.
-                    8. Get books from authors
+                    8. Get books with author.
                     0. Exit.
                     """);
         } else {

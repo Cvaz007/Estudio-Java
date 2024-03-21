@@ -69,11 +69,11 @@ public class AuthorController {
     public Author findByName(String name) {
         Author author = objAuthor.getAuthorByName(name);
 
-        System.out.println("============ AUTHORS ============");
-        System.out.println("Id: " + author.getId());
-        System.out.println("Name: " + author.getName());
-        System.out.println("Nationality: " + author.getNationality());
-        System.out.println("--!--!--!--!--!--!--!--!--!--!--!--!");
+//        System.out.println("============ AUTHORS ============");
+//        System.out.println("Id: " + author.getId());
+//        System.out.println("Name: " + author.getName());
+//        System.out.println("Nationality: " + author.getNationality());
+//        System.out.println("--!--!--!--!--!--!--!--!--!--!--!--!");
 
         return author;
     }

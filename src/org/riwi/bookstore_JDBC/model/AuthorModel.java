@@ -128,7 +128,7 @@ public class AuthorModel implements AuthorRepository {
         objConnection = ConfigurationDB.openConnection();
         Author author;
         try {
-            String sql = "SELECT * FROM author WHERE author.name = " + name + ";";
+            String sql = "SELECT * FROM author WHERE name = '" + name + "';";
             try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
                  ResultSet resultSet = statement.executeQuery()) {
 

@@ -184,7 +184,8 @@ public class BookModel implements BookRepository {
         List<Book> books = new ArrayList<Book>();
 
         try {
-            String sql = "SELECT *FROM book INNER JOIN author ON book.id = author.id WHERE author.id = ?;";
+            String sql = "SELECT *FROM book INNER JOIN author ON book.authorId = author.id WHERE author.id = ?;";
+
             try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)) {
 
                 statement.setString(1,idAuthor);

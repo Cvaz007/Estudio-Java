@@ -6,6 +6,7 @@ public class Book {
     private String authorId;
     private double price;
     private String yearOfPublished;
+    private Author author;
 
     public Book(String id, String title, String authorId, double price, String yearOfPublished) {
         this.id = id;
@@ -15,7 +16,24 @@ public class Book {
         this.yearOfPublished = yearOfPublished;
     }
 
+    public Book(String id, String title, String authorId, double price, String yearOfPublished, Author author) {
+        this.id = id;
+        this.title = title;
+        this.authorId = authorId;
+        this.price = price;
+        this.yearOfPublished = yearOfPublished;
+        this.author = author;
+    }
+
     public Book() {
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public String getId() {

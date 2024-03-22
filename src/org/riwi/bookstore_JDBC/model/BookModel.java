@@ -2,6 +2,7 @@ package org.riwi.bookstore_JDBC.model;
 
 
 import org.riwi.bookstore_JDBC.configuration.ConfigurationDB;
+import org.riwi.bookstore_JDBC.entity.Author;
 import org.riwi.bookstore_JDBC.entity.Book;
 import org.riwi.bookstore_JDBC.repository.BookRepository;
 
@@ -198,8 +199,11 @@ public class BookModel implements BookRepository {
                     String year = resultSet.getString("yearOfPublished");
                     String authorId = resultSet.getString("authorId");
                     double price = resultSet.getDouble("price");
+                    String name = resultSet.getString("name");
+                    String nationality = resultSet.getString("nationality");
 
-                    Book book = new Book(id, title, authorId, price, year);
+                    Author author = new Author(idAuthor,name,nationality);
+                    Book book = new Book(id, title, authorId, price, year,author);
                     books.add(book);
                 }
             }

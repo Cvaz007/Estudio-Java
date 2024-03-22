@@ -123,6 +123,10 @@ public class BookController {
             System.out.println("Author: " + book.getAuthorId());
             System.out.println("Price: " + book.getPrice());
             System.out.println("Year: " + book.getYearOfPublished());
+            System.out.println("------ AUTHOR INFORMATION -----");
+            System.out.println("Id: "+book.getAuthor().getName());
+            System.out.println("Name: "+book.getAuthor().getName());
+            System.out.println("Nationality"+book.getAuthor().getNationality());
             System.out.println("--!--!--!--!--!--!--!--!--!--!--!--!");
         }
     }

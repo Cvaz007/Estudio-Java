@@ -1,61 +1,67 @@
 package org.riwi.simulacros.simulacro2_2.model;
 
 import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
-import org.riwi.simulacros.simulacro2_1.entity.Appointment;
 import org.riwi.simulacros.simulacro2_2.entity.Airplane;
+import org.riwi.simulacros.simulacro2_2.entity.Passenger;
 import org.riwi.simulacros.simulacro2_2.repository.CrudRepository;
 
 import javax.swing.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AirplaneModel implements CrudRepository {
+public class PassengerModel implements CrudRepository {
     Connection objConnection;
 
-    public AirplaneModel() {
+    public PassengerModel() {
         this.objConnection = ConfigurationDB.openConnection();
     }
 
     @Override
     public Object save(Object object) {
-        Airplane airplane = (Airplane) object;
+        Passenger passenger = (Passenger) object;
         try {
-            String sql = "INSERT INTO airplane (model,capacity) VALUES (?,?);";
+            String sql = "INSERT INTO passanger (name,lastname,identity_document) VALUES (?,?,?);";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setString(1, airplane.getModel());
-            statement.setInt(2, airplane.getCapacity());
-            statement.execute();
+            statement.setString(1, passenger.getName());
+            statement.setString(2, passenger.getLastName());
+            statement.setString(3, passenger.getIdentityDocument());
 
+            statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
 
             while (rs.next()) {
-                airplane.setId(rs.getInt(1));
+                passenger.setId(rs.getInt(1));
             }
-            JOptionPane.showMessageDialog(null, "Airplane insertion completed successfully");
+            JOptionPane.showMessageDialog(null, "passenger insertion completed successfully");
 
         } catch (SQLException e) {
             ConfigurationDB.closeConnection();
             throw new RuntimeException(e);
         }
         ConfigurationDB.closeConnection();
-        return airplane;
+        return passenger;
     }
 
     @Override
     public void update(Object object) {
-        Airplane airplane = (Airplane) object;
+        Passenger passenger = (Passenger) object;
         try {
-            String sql = "UPDATE airplane SET model = ?, capacity = ? WHERE id = ?;";
+            String sql = "UPDATE passanger SET name = ?, lastname = ?, identity_document = ? WHERE id = ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setString(1, airplane.getModel());
-            statement.setInt(2, airplane.getCapacity());
-            statement.setInt(3, airplane.getId());
+            statement.setString(1, passenger.getName());
+            statement.setString(2, passenger.getLastName());
+            statement.setString(3, passenger.getIdentityDocument());
+            statement.setInt(4, passenger.getId());
+
             statement.execute();
 
             if (statement.executeUpdate() != 0) {
-                JOptionPane.showMessageDialog(null, "Airplane updating completed successfully");
+                JOptionPane.showMessageDialog(null, "Passenger updating completed successfully");
             }
         } catch (SQLException e) {
             ConfigurationDB.closeConnection();
@@ -66,15 +72,15 @@ public class AirplaneModel implements CrudRepository {
 
     @Override
     public void delete(Object object) {
-        Airplane airplane = (Airplane) object;
+        Passenger passenger = (Passenger) object;
         try {
-            String sql = "DELETE FROM airplane WHERE id =?";
+            String sql = "DELETE FROM passanger WHERE id =?";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1, airplane.getId());
+            statement.setInt(1, passenger.getId());
             statement.execute();
 
             if (statement.executeUpdate() != 0) {
-                JOptionPane.showMessageDialog(null, "Airplane deleting completed successfully");
+                JOptionPane.showMessageDialog(null, "Passenger deleting completed successfully");
             }
         } catch (SQLException e) {
             ConfigurationDB.closeConnection();
@@ -85,39 +91,42 @@ public class AirplaneModel implements CrudRepository {
 
     @Override
     public Object find(int id) {
-        Airplane airplane;
+        Passenger passenger;
         try {
-            String sql = "SELECT * FROM airplane WHERE id = ?;";
+            String sql = "SELECT * FROM passanger WHERE id = ?;";
 
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            int capacity = resultSet.getInt("capacity");
-            String model = resultSet.getString("model");
 
-            airplane = new Airplane(id, model, capacity);
+            String name = resultSet.getString("name");
+            String lastname = resultSet.getString("lastname");
+            String identityDocument = resultSet.getString("identity_document");
+
+            passenger = new Passenger(id, name, lastname, identityDocument);
         } catch (Exception e) {
             ConfigurationDB.closeConnection();
             throw new RuntimeException(e);
         }
         ConfigurationDB.closeConnection();
-        return airplane;
+        return passenger;
     }
 
     @Override
     public List<Object> findAll() {
-        List<Airplane> airplanes = new ArrayList<>();
+        List<Passenger> passengers = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM airplane";
+            String sql = "SELECT * FROM passanger";
             try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
                  ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    int capacity = resultSet.getInt("capacity");
-                    String model = resultSet.getString("model");
+                    String name = resultSet.getString("name");
+                    String lastname = resultSet.getString("lastname");
+                    String identityDocument = resultSet.getString("identity_document");
                     int id = resultSet.getInt("id");
 
-                    airplanes.add(new Airplane(id, model, capacity));
+                    passengers.add(new Passenger(id, name, lastname, identityDocument));
                 }
             }
         } catch (SQLException e) {
@@ -125,6 +134,6 @@ public class AirplaneModel implements CrudRepository {
             throw new RuntimeException("Error: " + e.getMessage(), e);
         }
         ConfigurationDB.closeConnection();
-        return Collections.singletonList(airplanes);
+        return Collections.singletonList(passengers);
     }
 }

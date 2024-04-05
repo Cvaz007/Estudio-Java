@@ -2,7 +2,6 @@ package org.riwi.simulacro2.model;
 
 import org.riwi.simulacro2.connection.ConfigurationDB;
 import org.riwi.simulacro2.entity.Appointment;
-import org.riwi.simulacro2.entity.Doctor;
 import org.riwi.simulacro2.repository.AppointmentCRUDRepository;
 
 import java.sql.*;
@@ -133,5 +132,30 @@ public class AppointmentModel implements AppointmentCRUDRepository {
         }
         ConfigurationDB.closeConnection();
         return appointments;
+    }
+
+    public Appointment findAppointmentByDate(java.util.Date date) {
+        objConnection = ConfigurationDB.openConnection();
+        Appointment appointment;
+        try {
+            String sql = "SELECT * FROM cita WHERE fecha_cita = " + date + ";";
+            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+
+                resultSet.next();
+                int idDoctor = resultSet.getInt("id_medico");
+                int idDate = resultSet.getInt("id_cita");
+                int idPatient = resultSet.getInt("id_paciente");
+                Date time = resultSet.getDate("hora");
+                String reason = resultSet.getString("motivo");
+
+                appointment = new Appointment(idDate, idDoctor, idPatient,  date, time, reason);
+            }
+        } catch (Exception e) {
+            ConfigurationDB.closeConnection();
+            throw new RuntimeException(e);
+        }
+        ConfigurationDB.closeConnection();
+        return appointment;
     }
 }

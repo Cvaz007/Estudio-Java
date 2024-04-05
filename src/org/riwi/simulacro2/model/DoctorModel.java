@@ -2,6 +2,7 @@ package org.riwi.simulacro2.model;
 
 import org.riwi.simulacro2.connection.ConfigurationDB;
 import org.riwi.simulacro2.entity.Doctor;
+import org.riwi.simulacro2.entity.Specialty;
 import org.riwi.simulacro2.repository.DoctorCRUDRepository;
 
 import java.sql.Connection;
@@ -126,6 +127,31 @@ public class DoctorModel implements DoctorCRUDRepository {
         } catch (SQLException e) {
             ConfigurationDB.closeConnection();
             throw new RuntimeException("Error: " + e.getMessage(), e);
+        }
+        ConfigurationDB.closeConnection();
+        return doctors;
+    }
+
+    public List<Doctor> findDoctorBySpecialty(int specialtyId) {
+        objConnection = ConfigurationDB.openConnection();
+        List<Doctor> doctors = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM medico WHERE id_especialidad = " + specialtyId + ";";
+            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id_medico");
+                    int idSpecialty = resultSet.getInt("id_especialidad");
+                    String name = resultSet.getString("nombre");
+                    String lastName = resultSet.getString("apellidos");
+
+                    Doctor doctor = new Doctor(id, name, lastName, idSpecialty);
+                    doctors.add(doctor);
+                }
+            }
+        } catch (Exception e) {
+            ConfigurationDB.closeConnection();
+            throw new RuntimeException(e);
         }
         ConfigurationDB.closeConnection();
         return doctors;

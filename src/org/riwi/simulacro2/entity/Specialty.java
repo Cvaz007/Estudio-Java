@@ -8,6 +8,11 @@ public class Specialty {
     public Specialty() {
     }
 
+    public Specialty(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Specialty(int id, String name, String description) {
         this.id = id;
         this.name = name;

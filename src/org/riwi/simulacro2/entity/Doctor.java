@@ -18,6 +18,12 @@ public class Doctor {
         this.specialtyId = specialtyId;
     }
 
+    public Doctor(String name, String lastName, int specialtyId) {
+        this.name = name;
+        this.lastName = lastName;
+        this.specialtyId = specialtyId;
+    }
+
     public Doctor(int id, String name, String lastName, int specialtyId, Specialty specialty) {
         this.id = id;
         this.name = name;

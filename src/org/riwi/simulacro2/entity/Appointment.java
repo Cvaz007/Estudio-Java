@@ -1,5 +1,7 @@
 package org.riwi.simulacro2.entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Appointment {
@@ -13,6 +15,14 @@ public class Appointment {
     private Patient patient;
 
     public Appointment() {
+    }
+
+    public Appointment(int doctorId, int patientId, Date date, Date time, String reason) {
+        this.doctorId = doctorId;
+        this.patientId = patientId;
+        this.date = date;
+        this.time = time;
+        this.reason = reason;
     }
 
     public Appointment(int id, int doctorId, int patientId, Date date, Date time, String reason) {

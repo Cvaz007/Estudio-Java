@@ -1,7 +1,7 @@
-package org.riwi.simulacro2.controller;
+package org.riwi.simulacros.simulacro2_1.controller;
 
-import org.riwi.simulacro2.entity.Patient;
-import org.riwi.simulacro2.model.PatientModel;
+import org.riwi.simulacros.simulacro2_1.entity.Patient;
+import org.riwi.simulacros.simulacro2_1.model.PatientModel;
 
 import javax.swing.*;
 import java.time.format.DateTimeFormatter;

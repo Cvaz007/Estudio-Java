@@ -1,7 +1,7 @@
-package org.riwi.simulacro2.controller;
+package org.riwi.simulacros.simulacro2_1.controller;
 
-import org.riwi.simulacro2.entity.Specialty;
-import org.riwi.simulacro2.model.SpecialtyModel;
+import org.riwi.simulacros.simulacro2_1.entity.Specialty;
+import org.riwi.simulacros.simulacro2_1.model.SpecialtyModel;
 
 import javax.swing.*;
 

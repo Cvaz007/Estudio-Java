@@ -1,7 +1,7 @@
-package org.riwi.simulacro2.controller;
+package org.riwi.simulacros.simulacro2_1.controller;
 
-import org.riwi.simulacro2.entity.Doctor;
-import org.riwi.simulacro2.model.DoctorModel;
+import org.riwi.simulacros.simulacro2_1.entity.Doctor;
+import org.riwi.simulacros.simulacro2_1.model.DoctorModel;
 
 import javax.swing.*;
 

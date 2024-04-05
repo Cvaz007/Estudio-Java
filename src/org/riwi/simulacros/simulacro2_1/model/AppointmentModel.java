@@ -1,8 +1,8 @@
-package org.riwi.simulacro2.model;
+package org.riwi.simulacros.simulacro2_1.model;
 
-import org.riwi.simulacro2.connection.ConfigurationDB;
-import org.riwi.simulacro2.entity.Appointment;
-import org.riwi.simulacro2.repository.AppointmentCRUDRepository;
+import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
+import org.riwi.simulacros.simulacro2_1.entity.Appointment;
+import org.riwi.simulacros.simulacro2_1.repository.AppointmentCRUDRepository;
 
 import java.sql.*;
 import java.util.ArrayList;

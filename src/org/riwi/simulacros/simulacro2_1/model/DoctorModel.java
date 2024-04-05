@@ -1,9 +1,8 @@
-package org.riwi.simulacro2.model;
+package org.riwi.simulacros.simulacro2_1.model;
 
-import org.riwi.simulacro2.connection.ConfigurationDB;
-import org.riwi.simulacro2.entity.Doctor;
-import org.riwi.simulacro2.entity.Specialty;
-import org.riwi.simulacro2.repository.DoctorCRUDRepository;
+import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
+import org.riwi.simulacros.simulacro2_1.entity.Doctor;
+import org.riwi.simulacros.simulacro2_1.repository.DoctorCRUDRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,9 +1,9 @@
-package org.riwi.simulacro2.model;
+package org.riwi.simulacros.simulacro2_1.model;
 
 
-import org.riwi.simulacro2.connection.ConfigurationDB;
-import org.riwi.simulacro2.entity.Patient;
-import org.riwi.simulacro2.repository.PatientCRUDRepository;
+import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
+import org.riwi.simulacros.simulacro2_1.entity.Patient;
+import org.riwi.simulacros.simulacro2_1.repository.PatientCRUDRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class PatientModel implements PatientCRUDRepository {
                  ResultSet resultSet = statement.executeQuery()) {
 
                 resultSet.next();
-                int patientId = resultSet.getInt("id_medico");
+                int patientId = resultSet.getInt("id_paciente");
                 String name = resultSet.getString("nombre");
                 String lastName = resultSet.getString("apellidos");
                 Date dateBirth = resultSet.getDate("fecha_nacimiento");
@@ -110,7 +110,7 @@ public class PatientModel implements PatientCRUDRepository {
             try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
                  ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    int id = resultSet.getInt("id_medico");
+                    int id = resultSet.getInt("id_paciente");
                     String name = resultSet.getString("nombre");
                     String lastName = resultSet.getString("apellidos");
                     Date dateBirth = resultSet.getDate("fecha_nacimiento");

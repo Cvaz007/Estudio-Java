@@ -1,9 +1,9 @@
-package org.riwi.simulacro2;
+package org.riwi.simulacros.simulacro2_1;
 
-import org.riwi.simulacro2.controller.AppointmentController;
-import org.riwi.simulacro2.controller.DoctorController;
-import org.riwi.simulacro2.controller.PatientController;
-import org.riwi.simulacro2.controller.SpecialtyController;
+import org.riwi.simulacros.simulacro2_1.controller.AppointmentController;
+import org.riwi.simulacros.simulacro2_1.controller.DoctorController;
+import org.riwi.simulacros.simulacro2_1.controller.PatientController;
+import org.riwi.simulacros.simulacro2_1.controller.SpecialtyController;
 
 import javax.swing.*;
 

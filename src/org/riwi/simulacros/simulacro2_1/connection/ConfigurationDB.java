@@ -1,4 +1,4 @@
-package org.riwi.simulacro2.connection;
+package org.riwi.simulacros.simulacro2_1.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

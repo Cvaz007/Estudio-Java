@@ -1,6 +1,6 @@
-package org.riwi.simulacro2.repository;
+package org.riwi.simulacros.simulacro2_1.repository;
 
-import org.riwi.simulacro2.entity.Appointment;
+import org.riwi.simulacros.simulacro2_1.entity.Appointment;
 
 import java.util.List;
 

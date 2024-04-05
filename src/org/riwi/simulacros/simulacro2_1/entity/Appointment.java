@@ -1,7 +1,5 @@
-package org.riwi.simulacro2.entity;
+package org.riwi.simulacros.simulacro2_1.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class Appointment {

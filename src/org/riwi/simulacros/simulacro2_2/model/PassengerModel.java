@@ -15,14 +15,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class PassengerModel implements CrudRepository {
-    Connection objConnection;
-
-    public PassengerModel() {
-        this.objConnection = ConfigurationDB.openConnection();
-    }
+    static Connection objConnection;
 
     @Override
     public Object save(Object object) {
+        objConnection = ConfigurationDB.openConnection();
         Passenger passenger = (Passenger) object;
         try {
             String sql = "INSERT INTO passanger (name,lastname,identity_document) VALUES (?,?,?);";
@@ -49,6 +46,7 @@ public class PassengerModel implements CrudRepository {
 
     @Override
     public void update(Object object) {
+        objConnection = ConfigurationDB.openConnection();
         Passenger passenger = (Passenger) object;
         try {
             String sql = "UPDATE passanger SET name = ?, lastname = ?, identity_document = ? WHERE id = ?;";
@@ -72,6 +70,7 @@ public class PassengerModel implements CrudRepository {
 
     @Override
     public void delete(Object object) {
+        objConnection = ConfigurationDB.openConnection();
         Passenger passenger = (Passenger) object;
         try {
             String sql = "DELETE FROM passanger WHERE id =?";
@@ -91,6 +90,7 @@ public class PassengerModel implements CrudRepository {
 
     @Override
     public Object find(int id) {
+        objConnection = ConfigurationDB.openConnection();
         Passenger passenger;
         try {
             String sql = "SELECT * FROM passanger WHERE id = ?;";
@@ -115,6 +115,7 @@ public class PassengerModel implements CrudRepository {
 
     @Override
     public List<Object> findAll() {
+        objConnection = ConfigurationDB.openConnection();
         List<Passenger> passengers = new ArrayList<>();
         try {
             String sql = "SELECT * FROM passanger";

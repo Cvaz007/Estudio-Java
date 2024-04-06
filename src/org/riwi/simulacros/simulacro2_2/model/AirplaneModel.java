@@ -14,12 +14,9 @@ import java.util.List;
 public class AirplaneModel implements CrudRepository {
     Connection objConnection;
 
-    public AirplaneModel() {
-        this.objConnection = ConfigurationDB.openConnection();
-    }
-
     @Override
     public Object save(Object object) {
+        objConnection = ConfigurationDB.openConnection();
         Airplane airplane = (Airplane) object;
         try {
             String sql = "INSERT INTO airplane (model,capacity) VALUES (?,?);";
@@ -45,6 +42,7 @@ public class AirplaneModel implements CrudRepository {
 
     @Override
     public void update(Object object) {
+        objConnection = ConfigurationDB.openConnection();
         Airplane airplane = (Airplane) object;
         try {
             String sql = "UPDATE airplane SET model = ?, capacity = ? WHERE id = ?;";
@@ -66,6 +64,7 @@ public class AirplaneModel implements CrudRepository {
 
     @Override
     public void delete(Object object) {
+        objConnection = ConfigurationDB.openConnection();
         Airplane airplane = (Airplane) object;
         try {
             String sql = "DELETE FROM airplane WHERE id =?";
@@ -85,6 +84,7 @@ public class AirplaneModel implements CrudRepository {
 
     @Override
     public Object find(int id) {
+        objConnection = ConfigurationDB.openConnection();
         Airplane airplane;
         try {
             String sql = "SELECT * FROM airplane WHERE id = ?;";
@@ -107,6 +107,7 @@ public class AirplaneModel implements CrudRepository {
 
     @Override
     public List<Object> findAll() {
+        objConnection = ConfigurationDB.openConnection();
         List<Airplane> airplanes = new ArrayList<>();
         try {
             String sql = "SELECT * FROM airplane";

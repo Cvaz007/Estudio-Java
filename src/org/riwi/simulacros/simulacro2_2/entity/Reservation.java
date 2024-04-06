@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Reservation {
     private int id;
-    private int patientId;
     private int flightId;
     private int passengerId;
     private String seat;
@@ -15,17 +14,15 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int patientId, int flightId, int passengerId, String seat, Date reservationDate) {
-        this.patientId = patientId;
+    public Reservation(int flightId, int passengerId, String seat, Date reservationDate) {
         this.flightId = flightId;
         this.passengerId = passengerId;
         this.seat = seat;
         this.reservationDate = reservationDate;
     }
 
-    public Reservation(int id, int patientId, int flightId, int passengerId, String seat, Date reservationDate, Passenger passenger, Flight flight) {
+    public Reservation(int id, int flightId, int passengerId, String seat, Date reservationDate, Passenger passenger, Flight flight) {
         this.id = id;
-        this.patientId = patientId;
         this.flightId = flightId;
         this.passengerId = passengerId;
         this.seat = seat;
@@ -40,14 +37,6 @@ public class Reservation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
     }
 
     public int getFlightId() {
@@ -102,11 +91,12 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", patientId=" + patientId +
                 ", flightId=" + flightId +
                 ", passengerId=" + passengerId +
                 ", seat='" + seat + '\'' +
-                ", reservationDate='" + reservationDate + '\'' +
+                ", reservationDate=" + reservationDate +
+                ", passenger=" + passenger.toString() +
+                ", flight=" + flight.toString() +
                 '}';
     }
 }

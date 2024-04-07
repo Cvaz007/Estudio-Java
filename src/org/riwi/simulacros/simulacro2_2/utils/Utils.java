@@ -5,6 +5,7 @@ import org.riwi.simulacros.simulacro2_2.repository.CrudRepository;
 import javax.swing.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -51,7 +52,7 @@ public abstract class Utils {
 
     public <T> T createObjectDynamically(Class<T> clazz, List<AttributeInfo> listAttributes) {
         for (AttributeInfo attributeInfo : listAttributes) {
-            if (attributeInfo.getAttributeType().equalsIgnoreCase("int") && !attributeInfo.getAttributeName().equalsIgnoreCase("id")) {
+            if (attributeInfo.getAttributeType().equalsIgnoreCase("int")) {
                 int intValue = Integer.parseInt(JOptionPane.showInputDialog("Type " + attributeInfo.getAttributeName()));
                 attributeInfo.setValue(intValue);
             }
@@ -64,7 +65,7 @@ public abstract class Utils {
                 attributeInfo.setValue(doubleValue);
             }
             if (attributeInfo.getAttributeType().equalsIgnoreCase("date")) {
-                String dateString = JOptionPane.showInputDialog("Type " + attributeInfo.getAttributeName());
+                String dateString = JOptionPane.showInputDialog("Type " + attributeInfo.getAttributeName() +"  dd-MM-yyyy");
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                     Date dateValue = format.parse(dateString);
@@ -74,11 +75,11 @@ public abstract class Utils {
                 }
             }
             if (attributeInfo.getAttributeType().equalsIgnoreCase("time")) {
-                String timeString = JOptionPane.showInputDialog("Type " + attributeInfo.getAttributeName());
+                String timeString = JOptionPane.showInputDialog("Type " + attributeInfo.getAttributeName()+"  HH:mm:ss");
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
                 try {
                     LocalTime timeValue = LocalTime.parse(timeString, format);
-                    attributeInfo.setValue(timeValue);
+                    attributeInfo.setValue(Time.valueOf(timeValue));
                 } catch (DateTimeParseException e) {
                     JOptionPane.showMessageDialog(null, "Format error");
                 }

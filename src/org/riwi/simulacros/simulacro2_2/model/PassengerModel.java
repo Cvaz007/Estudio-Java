@@ -89,20 +89,21 @@ public class PassengerModel implements CrudRepository {
     }
 
     @Override
-    public Object find(int id) {
+    public Object find(Object object) {
         objConnection = ConfigurationDB.openConnection();
         Passenger passenger;
         try {
-            String sql = "SELECT * FROM passanger WHERE id = ?;";
+            String sql = "SELECT * FROM passanger WHERE name LIKE ?;";
 
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setString(1, "%"+object.toString()+"%");
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
 
             String name = resultSet.getString("name");
             String lastname = resultSet.getString("lastname");
             String identityDocument = resultSet.getString("identity_document");
+            int id = resultSet.getInt("id");
 
             passenger = new Passenger(id, name, lastname, identityDocument);
         } catch (Exception e) {

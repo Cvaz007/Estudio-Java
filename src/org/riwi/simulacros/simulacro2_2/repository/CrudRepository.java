@@ -11,7 +11,7 @@ public interface CrudRepository {
 
     void delete(Object object);
 
-    Object find(int id);
+    Object find(Object object);
 
     List<Object> findAll();
 }

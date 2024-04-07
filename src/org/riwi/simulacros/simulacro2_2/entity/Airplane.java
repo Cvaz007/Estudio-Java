@@ -45,7 +45,7 @@ public class Airplane {
 
     @Override
     public String toString() {
-        return "Airplane{" +
+        return "\n Airplane{" +
                 "id=" + id +
                 ", model='" + model + '\'' +
                 ", capacity=" + capacity +

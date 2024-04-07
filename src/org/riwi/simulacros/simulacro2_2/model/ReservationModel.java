@@ -1,12 +1,11 @@
 package org.riwi.simulacros.simulacro2_2.model;
 
 import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
-import org.riwi.simulacros.simulacro2_2.entity.Airplane;
 import org.riwi.simulacros.simulacro2_2.entity.Flight;
 import org.riwi.simulacros.simulacro2_2.entity.Passenger;
 import org.riwi.simulacros.simulacro2_2.entity.Reservation;
 import org.riwi.simulacros.simulacro2_2.repository.CrudRepository;
-import org.riwi.simulacros.simulacro2_2.repository.JoinRepository;
+import org.riwi.simulacros.simulacro2_2.repository.JoinTest;
 
 import javax.swing.*;
 import java.sql.*;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ReservationModel implements CrudRepository, JoinRepository {
+public class ReservationModel implements CrudRepository {
     Connection objConnection;
 
     @Override
@@ -159,17 +158,15 @@ public class ReservationModel implements CrudRepository, JoinRepository {
         return Collections.singletonList(reservations);
     }
 
-    @Override
-    public List<Object> findEntityBySomething(Object entity) {
+
+    public List<Object> findEntityBySomething(Reservation entity) {
         objConnection = ConfigurationDB.openConnection();
         List<Reservation> reservations = new ArrayList<>();
-        System.out.println(entity.toString());
 
-        Reservation reservationCast = (Reservation) entity;
         try {
             String sql = "SELECT * FROM reservation INNER JOIN flight ON flight.id = reservation.flight_id INNER JOIN passanger ON passanger.id = reservation.passenger_id where = ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1,reservationCast.getId() );
+            statement.setInt(1,entity.getId() );
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Flight flight = new Flight();

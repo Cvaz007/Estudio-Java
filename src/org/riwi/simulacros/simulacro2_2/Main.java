@@ -1,6 +1,7 @@
 package org.riwi.simulacros.simulacro2_2;
 
 import org.riwi.simulacros.simulacro2_2.controller.GenericController;
+import org.riwi.simulacros.simulacro2_2.controller.ReservationController;
 import org.riwi.simulacros.simulacro2_2.entity.Airplane;
 import org.riwi.simulacros.simulacro2_2.entity.Flight;
 import org.riwi.simulacros.simulacro2_2.entity.Passenger;
@@ -171,7 +172,8 @@ public class Main {
                                 controller.getAll(reservationModel);
                                 break;
                             case "6. List by something":
-                                controller.getBySomething(reservationModel, reservationModel, Reservation.class);
+                                ReservationController reservationController = new ReservationController();
+                                reservationController.getBySomething();
                                 break;
                             case "7. Exit":
                                 System.out.println("BYE!");

@@ -90,6 +90,7 @@ public class FlightModel implements CrudRepository {
         objConnection = ConfigurationDB.openConnection();
         Flight flight = new Flight();
         try {
+            //
             String sql = "SELECT * FROM flight INNER JOIN airplane ON flight.airplane_id = airplane.id WHERE destination LIKE ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
             statement.setString(1, "%"+object.toString()+"%" );

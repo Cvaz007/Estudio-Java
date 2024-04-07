@@ -22,7 +22,7 @@ public class PatientModel implements CrudRepository {
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, patient.getName());
             statement.setString(2, patient.getLastName());
-            statement.setDate(3, (Date) patient.getDateBirth());
+            statement.setDate(3, new Date(patient.getDateBirth().getTime()));
             statement.setString(4, patient.getIdentityCard());
 
 
@@ -51,7 +51,7 @@ public class PatientModel implements CrudRepository {
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
             statement.setString(1, patient.getName());
             statement.setString(2, patient.getLastName());
-            statement.setDate(3, (Date) patient.getDateBirth());
+            statement.setDate(3, new Date(patient.getDateBirth().getTime()));
             statement.setString(4, patient.getIdentityCard());
             statement.setInt(5, patient.getId());
 

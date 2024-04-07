@@ -3,7 +3,6 @@ package org.riwi.simulacros.simulacro2_1.model;
 import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
 import org.riwi.simulacros.simulacro2_1.entity.Appointment;
 import org.riwi.simulacros.simulacro2_1.repository.CrudRepository;
-import org.riwi.simulacros.simulacro2_1.repository.JoinTest;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,8 +22,8 @@ public class AppointmentModel implements CrudRepository {
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setInt(1, appointment.getPatientId());
             statement.setInt(2, appointment.getDoctorId());
-            statement.setDate(3, (Date) appointment.getDate());
-            statement.setDate(4, (Date) appointment.getTime());
+            statement.setDate(3, new Date(appointment.getDate().getTime()));
+            statement.setTime(4, appointment.getTime());
             statement.setString(5, appointment.getReason());
 
             statement.execute();
@@ -53,8 +52,8 @@ public class AppointmentModel implements CrudRepository {
 
             statement.setInt(1, appointment.getPatientId());
             statement.setInt(2, appointment.getDoctorId());
-            statement.setDate(3, (Date) appointment.getDate());
-            statement.setDate(4, (Date) appointment.getTime());
+            statement.setDate(3, new Date(appointment.getDate().getTime()));
+            statement.setTime(4, appointment.getTime());
             statement.setString(5, appointment.getReason());
             statement.setInt(6, appointment.getId());
 
@@ -100,7 +99,7 @@ public class AppointmentModel implements CrudRepository {
             int idDate = resultSet.getInt("id_cita");
             int idPatient = resultSet.getInt("id_paciente");
             Date date = resultSet.getDate("fecha_cita");
-            Date time = resultSet.getDate("hora");
+            Time time = resultSet.getTime("hora");
             String reason = resultSet.getString("motivo");
 
             appointment = new Appointment(idDate, idDoctor, idPatient, date, time, reason);
@@ -126,7 +125,7 @@ public class AppointmentModel implements CrudRepository {
                     int idDate = resultSet.getInt("id_cita");
                     int idPatient = resultSet.getInt("id_paciente");
                     Date date = resultSet.getDate("fecha_cita");
-                    Date time = resultSet.getDate("hora");
+                    Time time = resultSet.getTime("hora");
                     String reason = resultSet.getString("motivo");
 
                     Appointment appointment = new Appointment(idDate, idDoctor, idPatient, date, time, reason);
@@ -153,7 +152,7 @@ public class AppointmentModel implements CrudRepository {
                 int idDoctor = resultSet.getInt("id_medico");
                 int idDate = resultSet.getInt("id_cita");
                 int idPatient = resultSet.getInt("id_paciente");
-                Date time = resultSet.getDate("hora");
+                Time time = resultSet.getTime("hora");
                 String reason = resultSet.getString("motivo");
 
                 appointment = new Appointment(idDate, idDoctor, idPatient, date, time, reason);

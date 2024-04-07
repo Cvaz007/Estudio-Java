@@ -1,12 +1,11 @@
 package org.riwi.simulacros.simulacro2_2.controller;
 
 import org.riwi.simulacros.simulacro2_2.repository.CrudRepository;
-import org.riwi.simulacros.simulacro2_2.repository.JoinRepository;
+import org.riwi.simulacros.simulacro2_2.repository.JoinTest;
 import org.riwi.simulacros.simulacro2_2.utils.AttributeInfo;
 import org.riwi.simulacros.simulacro2_2.utils.Utils;
 
 import javax.swing.*;
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 public class GenericController extends Utils {
@@ -18,18 +17,6 @@ public class GenericController extends Utils {
             listString += item.toString() + "\n";
         }
         JOptionPane.showMessageDialog(null, listString);
-    }
-
-    public <T> void getBySomething(JoinRepository join, CrudRepository model, Class<T> entity) {
-        Object obj = selectOption(model, entity);
-        if (obj != null) {
-            String listString = "LIST OF REGISTERS \n";
-            for (Object item : join.findEntityBySomething(obj)) {
-                listString += item.toString() + "\n";
-            }
-            JOptionPane.showMessageDialog(null, listString);
-        } else
-            JOptionPane.showInputDialog("Option not valid");
     }
 
     public void get(CrudRepository model) {

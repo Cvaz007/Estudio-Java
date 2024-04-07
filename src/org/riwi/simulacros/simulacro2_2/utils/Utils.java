@@ -1,5 +1,7 @@
 package org.riwi.simulacros.simulacro2_2.utils;
 
+import org.riwi.simulacros.simulacro2_2.controller.ReservationController;
+import org.riwi.simulacros.simulacro2_2.entity.Reservation;
 import org.riwi.simulacros.simulacro2_2.repository.CrudRepository;
 
 import javax.swing.*;
@@ -106,32 +108,5 @@ public abstract class Utils {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public <T> T selectOption(CrudRepository model, Class<T> entity) {
-        Object[] options = listToArray(model.findAll());
-        try {
-            // Obtén el constructor de la clase correspondiente
-            Constructor<T> constructor = entity.getDeclaredConstructor();
-            constructor.setAccessible(false); // Si el constructor es privado
-
-            // Crea una instancia de la clase
-            T object = constructor.newInstance();
-            object = (T) JOptionPane.showInputDialog(
-                    null,
-                    "Select one option",
-                    "Inner join",
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[0]
-            );
-
-            return object;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

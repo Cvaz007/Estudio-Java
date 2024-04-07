@@ -39,4 +39,20 @@ public class GenericController extends Utils {
         List<AttributeInfo> list = extractAttributesInfo(entity);
         model.update(createObjectDynamically(entity, list));
     }
+
+    public void getBySomething(CrudRepository model, JoinTest join,Class<?> entity) {
+        List<Object> list = model.findAll();
+        String listString = "LIST OF REGISTERS -SELECT ONE \n";
+        for (Object item : list) {
+            listString += item.toString() + "\n";
+        }
+        String option = JOptionPane.showInputDialog(null, listString);
+
+        String listRegisters= "LIST OF REGISTERS \n";
+
+        for (Object item : join.findEntityBySomething(option)) {
+            listString += item.toString() + "\n";
+        }
+        JOptionPane.showMessageDialog(null, listString);
+    }
 }

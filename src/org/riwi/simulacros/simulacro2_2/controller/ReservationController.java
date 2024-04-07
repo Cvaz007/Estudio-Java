@@ -13,23 +13,5 @@ public class ReservationController extends Utils {
         this.model = new ReservationModel();
     }
 
-    public void getBySomething() {
-        Object[] options = listToArray(model.findAll());
-        Reservation option = (Reservation) JOptionPane.showInputDialog(
-                null,
-                "Select one option",
-                "Inner join",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]
-        );
 
-
-        String listString = "LIST OF REGISTERS \n";
-        for (Object item : model.findEntityBySomething(option)) {
-            listString += item.toString() + "\n";
-        }
-        JOptionPane.showMessageDialog(null, listString);
-    }
 }

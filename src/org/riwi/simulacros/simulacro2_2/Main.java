@@ -172,8 +172,8 @@ public class Main {
                                 controller.getAll(reservationModel);
                                 break;
                             case "6. List by something":
-                                ReservationController reservationController = new ReservationController();
-                                reservationController.getBySomething();
+                                //ReservationController reservationController = new ReservationController();
+                                controller.getBySomething(reservationModel,reservationModel);
                                 break;
                             case "7. Exit":
                                 System.out.println("BYE!");

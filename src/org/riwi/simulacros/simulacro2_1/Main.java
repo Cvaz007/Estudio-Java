@@ -1,159 +1,190 @@
 package org.riwi.simulacros.simulacro2_1;
 
-import org.riwi.simulacros.simulacro2_1.controller.AppointmentController;
-import org.riwi.simulacros.simulacro2_1.controller.DoctorController;
-import org.riwi.simulacros.simulacro2_1.controller.PatientController;
-import org.riwi.simulacros.simulacro2_1.controller.SpecialtyController;
+import org.riwi.simulacros.simulacro2_1.entity.Appointment;
+import org.riwi.simulacros.simulacro2_1.entity.Doctor;
+import org.riwi.simulacros.simulacro2_1.entity.Patient;
+import org.riwi.simulacros.simulacro2_1.entity.Specialty;
+import org.riwi.simulacros.simulacro2_1.model.AppointmentModel;
+import org.riwi.simulacros.simulacro2_1.model.DoctorModel;
+import org.riwi.simulacros.simulacro2_1.model.PatientModel;
+import org.riwi.simulacros.simulacro2_1.model.SpecialtyModel;
+import org.riwi.simulacros.simulacro2_1.controller.GenericController;
+
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        DoctorController doctorController = new DoctorController();
-        SpecialtyController specialtyController =  new SpecialtyController();
-        PatientController patientController = new PatientController();
-        AppointmentController appointmentController = new AppointmentController();
-        
-        int opcion = 0, opcionEspecialidad = 0, opcionMedico = 0, opcionPaciente = 0 , opcionCita = 0;
+        GenericController controller = new GenericController();
+        AppointmentModel appointmentModel = new AppointmentModel();
+        DoctorModel doctorModel = new DoctorModel();
+        PatientModel patientModel = new PatientModel();
+        SpecialtyModel specialtyModel = new SpecialtyModel();
 
+        String optionEntity, optionCrud;
+        String[] optionsEntity = {"1.CRUD DOCTOR", "2.CRUD PATIENT", "3.CRUD SPECIALTY", "4.CRUD APPOINTMENT", "5. EXIT"};
+        String[] optionsCrud = {"1. Create", "2. Delete", "3. Update", "4. List", "5. List all", "6. List by something", "7. Exit"};
         do {
-            opcion = Integer.parseInt(JOptionPane.showInputDialog("""
-                    Ingrese una opción
-                    1 - CRUD ESPECIALIDAD
-                    2 - CRUD MEDICO
-                    3 - CRUD PACIENTE
-                    4 - CRUD CITA
-                    """));
-
-            switch (opcion){
-                case 1:
+            optionEntity = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Select one option",
+                    "Select Menu",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    optionsEntity,
+                    optionsEntity[0]
+            );
+            System.out.println(optionEntity);
+            switch (optionEntity) {
+                case "1.CRUD DOCTOR":
                     do {
-                        opcionEspecialidad = Integer.parseInt(JOptionPane.showInputDialog("""
-                                1 - Crear especialidad
-                                2 - Eliminar especialidad 
-                                3 - Actualizar especialidad
-                                4 - Listar especialidades
-                                5 - Salir 
-                                """));
+                        optionCrud = (String) JOptionPane.showInputDialog(
+                                null,
+                                "Select one option",
+                                "Select Menu",
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                optionsCrud,
+                                optionsCrud[0]);
 
-                        switch (opcionEspecialidad){
-                            case 1:
-                                specialtyController.saveSpecialty();
+                        switch (optionCrud) {
+                            case "1. Create":
+                                controller.save(doctorModel, Doctor.class);
                                 break;
-                            case 2:
-                                specialtyController.deleteSpecialty();
+                            case "2. Delete":
+                                controller.delete(doctorModel);
                                 break;
-                            case 3:
-                                specialtyController.updateSpecialty();
+                            case "3. Update":
+                                controller.update(doctorModel, Doctor.class);
                                 break;
-                            case 4:
-                                specialtyController.finAllSpecialty();
+                            case "4. List":
+                                controller.get(doctorModel);
+                                break;
+                            case "5. List all":
+                                controller.getAll(doctorModel);
+                                break;
+                            case "7. Exit":
+                                System.out.println("BYE!");
+                                break;
+                            default:
+                                JOptionPane.showInputDialog("I'm sorry, this options is not valid with this entity");
                                 break;
                         }
-                    }while (opcionEspecialidad != 5);
-
+                    } while (!optionCrud.equalsIgnoreCase("7. Exit"));
                     break;
-
-                case 2:
+                case "2.CRUD PATIENT":
                     do {
-                        opcionMedico = Integer.parseInt(JOptionPane.showInputDialog("""
-                                1 - Crear medico
-                                2 - Eliminar medico 
-                                3 - Actualizar medico
-                                4 - Listar medicos 
-                                5 - Buscar medicos por especialidad 
-                                6 - Salir
-                                """));
+                        optionCrud = (String) JOptionPane.showInputDialog(
+                                null,
+                                "Select one option",
+                                "Select Menu",
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                optionsCrud,
+                                optionsCrud[0]);
 
-                        switch (opcionMedico){
-                            case 1:
-                                doctorController.saveDoctor();
+                        switch (optionCrud) {
+                            case "1. Create":
+                                controller.save(patientModel, Patient.class);
                                 break;
-                            case 2:
-                                doctorController.deleteDoctor();
+                            case "2. Delete":
+                                controller.delete(patientModel);
                                 break;
-                            case 3:
-                                doctorController.updateDoctor();
+                            case "3. Update":
+                                controller.update(patientModel, Patient.class);
                                 break;
-                            case 4:
-                                doctorController.findAll();
+                            case "4. List":
+                                controller.get(patientModel);
                                 break;
-                            case 5:
-                                //Falta
-                                doctorController.findDoctorBySpecialty();
+                            case "5. List all":
+                                controller.getAll(patientModel);
+                                break;
+                            case "7. Exit":
+                                System.out.println("BYE!");
+                                break;
+                            default:
+                                JOptionPane.showInputDialog("I'm sorry, this options is not valid with this entity");
                                 break;
                         }
-
-
-                    }while (opcionMedico != 6);
+                    } while (!optionCrud.equalsIgnoreCase("7. Exit"));
                     break;
-
-                case 3:
+                case "3.CRUD SPECIALTY":
                     do {
-                        opcionPaciente = Integer.parseInt(JOptionPane.showInputDialog("""
-                                 1 - Crear paciente 
-                                 2 - Eliminar paciente 
-                                 3 - Actualizar paciente  
-                                 4 - Listar pacientes 
-                                 5 - Buscar paciente por cédula
-                                 6 - Salir 
-                                 """));
+                        optionCrud = (String) JOptionPane.showInputDialog(
+                                null,
+                                "Select one option",
+                                "Select Menu",
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                optionsCrud,
+                                optionsCrud[0]);
 
-                        switch (opcionPaciente){
-                            case 1:
-                                patientController.savePatient();
+                        switch (optionCrud) {
+                            case "1. Create":
+                                controller.save(specialtyModel, Specialty.class);
                                 break;
-                            case 2:
-                                patientController.deletePatient();
+                            case "2. Delete":
+                                controller.delete(specialtyModel);
                                 break;
-                            case 3:
-                                patientController.updatePatient();
+                            case "3. Update":
+                                controller.update(specialtyModel, Specialty.class);
                                 break;
-                            case 4:
-                                patientController.findAll();
+                            case "4. List":
+                                controller.get(specialtyModel);
                                 break;
-                            case 5:
-                                patientController.findPatient();
+                            case "5. List all":
+                                controller.getAll(specialtyModel);
+                                break;
+                            case "7. Exit":
+                                System.out.println("BYE!");
+                                break;
+                            default:
+                                JOptionPane.showInputDialog("I'm sorry, this options is not valid with this entity");
                                 break;
                         }
-
-                    }while (opcionPaciente != 6);
+                    } while (!optionCrud.equalsIgnoreCase("7. Exit"));
                     break;
-
-                case 4:
+                case "4.CRUD APPOINTMENT":
                     do {
-                        opcionCita = Integer.parseInt(JOptionPane.showInputDialog("""
-                                1 - Crear cita
-                                2 - Eliminar cita 
-                                3 - Actualizar cita 
-                                4 - Listar cita 
-                                5 - listar cita por fecha 
-                                6 - Salir
-                                
-                                """));
+                        optionCrud = (String) JOptionPane.showInputDialog(
+                                null,
+                                "Select one option",
+                                "Select Menu",
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                optionsCrud,
+                                optionsCrud[0]);
 
-                        switch (opcionCita){
-                            case 1:
-                                appointmentController.saveAppointment();
+                        switch (optionCrud) {
+                            case "1. Create":
+                                controller.save(appointmentModel, Appointment.class);
                                 break;
-                            case 2:
-                                appointmentController.deleteAppointment();
+                            case "2. Delete":
+                                controller.delete(appointmentModel);
                                 break;
-                            case 3:
-                                appointmentController.updateAppointment();
+                            case "3. Update":
+                                controller.update(appointmentModel, Appointment.class);
                                 break;
-                            case 4:
-                                appointmentController.findAllAppointment();
+                            case "4. List":
+                                controller.get(appointmentModel);
                                 break;
-                            case 5:
-                                appointmentController.findAppointmentByDate();
+                            case "5. List all":
+                                controller.getAll(appointmentModel);
+                                break;
+                            case "6. List by something":
+                                //ReservationController reservationController = new ReservationController();
+                                //controller.getBySomething(appointmentModel);
+                                break;
+                            case "7. Exit":
+                                System.out.println("BYE!");
+                                break;
+                            default:
+                                JOptionPane.showInputDialog("I'm sorry, this options is not valid with this entity");
                                 break;
                         }
-                    }while (opcionCita != 6);
+                    } while (!optionCrud.equalsIgnoreCase("7. Exit"));
                     break;
             }
-
-
-        }while (opcion != 5);
+        } while (!optionEntity.equalsIgnoreCase("5. EXIT"));
     }
 }

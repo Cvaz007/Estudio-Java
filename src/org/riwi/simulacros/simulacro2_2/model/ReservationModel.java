@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ReservationModel implements CrudRepository {
+public class ReservationModel implements CrudRepository,JoinTest {
     Connection objConnection;
 
     @Override
@@ -158,15 +158,15 @@ public class ReservationModel implements CrudRepository {
         return Collections.singletonList(reservations);
     }
 
-
-    public List<Object> findEntityBySomething(Reservation entity) {
+    @Override
+    public List<Object> findEntityBySomething(int entity) {
         objConnection = ConfigurationDB.openConnection();
         List<Reservation> reservations = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM reservation INNER JOIN flight ON flight.id = reservation.flight_id INNER JOIN passanger ON passanger.id = reservation.passenger_id where = ?;";
+            String sql = "SELECT * FROM reservation INNER JOIN flight ON flight.id = reservation.flight_id INNER JOIN passanger ON passanger.id = reservation.passenger_id where flight.id = ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1,entity.getId() );
+            statement.setInt(1,entity );
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Flight flight = new Flight();
@@ -188,7 +188,7 @@ public class ReservationModel implements CrudRepository {
                 flight.setTime(resultSet.getTime("flight.time"));
                 flight.setStart(resultSet.getDate("flight.start"));
                 flight.setDestination(resultSet.getString("flight.destination"));
-                flight.setAirplaneId(resultSet.getInt("flight.airplane_idpassanger."));
+                flight.setAirplaneId(resultSet.getInt("flight.airplane_id"));
 
                 reservation.setPassenger(passenger);
                 reservation.setFlight(flight);

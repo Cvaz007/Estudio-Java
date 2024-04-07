@@ -2,25 +2,29 @@ package org.riwi.simulacros.simulacro2_1.model;
 
 import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
 import org.riwi.simulacros.simulacro2_1.entity.Specialty;
-import org.riwi.simulacros.simulacro2_1.repository.SpecialtyCRUDRepository;
+import org.riwi.simulacros.simulacro2_1.repository.CrudRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class SpecialtyModel implements SpecialtyCRUDRepository {
+public class SpecialtyModel implements CrudRepository {
     Connection objConnection;
+
     @Override
-    public Specialty saveSpecialty(Specialty specialty) {
+    public Object save(Object object) {
         objConnection = ConfigurationDB.openConnection();
+        Specialty specialty = new Specialty();
         try {
             String sql = "INSERT INTO especialidad (nombre, descripcion) VALUES (?,?);";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, specialty.getName());
-            statement.setString(2, specialty.getDescription());;
+            statement.setString(2, specialty.getDescription());
+            ;
 
             statement.execute();
 
@@ -40,29 +44,15 @@ public class SpecialtyModel implements SpecialtyCRUDRepository {
     }
 
     @Override
-    public void deleteSpecialty(int id) {
+    public void update(Object object) {
         objConnection = ConfigurationDB.openConnection();
-
-        try {
-            String sql = "DELETE FROM especialidad WHERE id_especialidad = ?;";
-            PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1, id);
-
-            statement.execute();
-            System.out.println("The row was deleted successfully");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void updateSpecialty(Specialty specialty) {
-        objConnection = ConfigurationDB.openConnection();
+        Specialty specialty = new Specialty();
         try {
             String sql = "UPDATE medico SET nombre = ?, descripcion = ? WHERE id_especialidad = ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
             statement.setString(1, specialty.getName());
-            statement.setString(2, specialty.getDescription());;
+            statement.setString(2, specialty.getDescription());
+            ;
             statement.setInt(3, specialty.getId());
 
 
@@ -77,21 +67,38 @@ public class SpecialtyModel implements SpecialtyCRUDRepository {
     }
 
     @Override
-    public Specialty findSpecialtyById(int id) {
+    public void delete(Object object) {
+        objConnection = ConfigurationDB.openConnection();
+        Specialty specialty = new Specialty();
+        try {
+            String sql = "DELETE FROM especialidad WHERE id_especialidad = ?;";
+            PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+            statement.setInt(1, specialty.getId());
+
+            statement.execute();
+            System.out.println("The row was deleted successfully");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Object find(Object object) {
         objConnection = ConfigurationDB.openConnection();
         Specialty specialty;
         try {
-            String sql = "SELECT * FROM especialidad WHERE id_especialidad = " + id + ";";
-            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-                 ResultSet resultSet = statement.executeQuery()) {
+            String sql = "SELECT * FROM especialidad WHERE id_especialidad = ?;";
+            PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+            statement.setInt(1, (int) object);
+            ResultSet resultSet = statement.executeQuery();
 
-                resultSet.next();
-                int idSpecialty = resultSet.getInt("id_especialidad");
-                String name = resultSet.getString("nombre");
-                String description = resultSet.getString("descripcion");
+            resultSet.next();
+            int idSpecialty = resultSet.getInt("id_especialidad");
+            String name = resultSet.getString("nombre");
+            String description = resultSet.getString("descripcion");
 
-                specialty = new Specialty(idSpecialty, name, description);
-            }
+            specialty = new Specialty(idSpecialty, name, description);
+
         } catch (Exception e) {
             ConfigurationDB.closeConnection();
             throw new RuntimeException(e);
@@ -101,6 +108,30 @@ public class SpecialtyModel implements SpecialtyCRUDRepository {
     }
 
     @Override
+    public List<Object> findAll() {
+        objConnection = ConfigurationDB.openConnection();
+        List<Specialty> specialties = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM especialidad";
+            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id_especialidad");
+                    String name = resultSet.getString("nombre");
+                    String description = resultSet.getString("descripcion");
+
+                    Specialty specialty = new Specialty(id, name, description);
+                    specialties.add(specialty);
+                }
+            }
+        } catch (SQLException e) {
+            ConfigurationDB.closeConnection();
+            throw new RuntimeException("Error: " + e.getMessage(), e);
+        }
+        ConfigurationDB.closeConnection();
+        return Collections.singletonList(specialties);
+    }
+
     public Specialty findSpecialtyByName(String name) {
         objConnection = ConfigurationDB.openConnection();
         Specialty specialty;
@@ -122,30 +153,5 @@ public class SpecialtyModel implements SpecialtyCRUDRepository {
         }
         ConfigurationDB.closeConnection();
         return specialty;
-    }
-
-    @Override
-    public List<Specialty> findAll() {
-        objConnection = ConfigurationDB.openConnection();
-        List<Specialty> specialties = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM especialidad";
-            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-                 ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("id_especialidad");
-                    String name = resultSet.getString("nombre");
-                    String description = resultSet.getString("descripcion");
-
-                    Specialty specialty = new Specialty(id, name, description);
-                    specialties.add(specialty);
-                }
-            }
-        } catch (SQLException e) {
-            ConfigurationDB.closeConnection();
-            throw new RuntimeException("Error: " + e.getMessage(), e);
-        }
-        ConfigurationDB.closeConnection();
-        return specialties;
     }
 }

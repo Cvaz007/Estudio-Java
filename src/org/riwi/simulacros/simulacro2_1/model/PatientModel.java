@@ -3,23 +3,26 @@ package org.riwi.simulacros.simulacro2_1.model;
 
 import org.riwi.simulacros.simulacro2_1.connection.ConfigurationDB;
 import org.riwi.simulacros.simulacro2_1.entity.Patient;
-import org.riwi.simulacros.simulacro2_1.repository.PatientCRUDRepository;
+import org.riwi.simulacros.simulacro2_1.repository.CrudRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class PatientModel implements PatientCRUDRepository {
+public class PatientModel implements CrudRepository {
     Connection objConnection;
+
     @Override
-    public Patient savePatient(Patient patient) {
+    public Object save(Object object) {
         objConnection = ConfigurationDB.openConnection();
+        Patient patient = (Patient) object;
         try {
             String sql = "INSERT INTO paciente (nombre, apellidos, fecha_nacimiento,documento_identidad) VALUES (?,?,?,?);";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, patient.getName());
             statement.setString(2, patient.getLastName());
-            statement.setDate(3, (Date) patient.getDateBirth());
+            statement.setDate(3, new Date(patient.getDateBirth().getTime()));
             statement.setString(4, patient.getIdentityCard());
 
 
@@ -40,14 +43,15 @@ public class PatientModel implements PatientCRUDRepository {
     }
 
     @Override
-    public void updatePatient(Patient patient) {
+    public void update(Object object) {
         objConnection = ConfigurationDB.openConnection();
+        Patient patient = (Patient) object;
         try {
             String sql = "UPDATE paciente SET nombre = ?, apellidos = ?, fecha_nacimiento = ?, documento_identidad = ? WHERE id_paciente = ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
             statement.setString(1, patient.getName());
             statement.setString(2, patient.getLastName());
-            statement.setDate(3, (Date) patient.getDateBirth());
+            statement.setDate(3, new Date(patient.getDateBirth().getTime()));
             statement.setString(4, patient.getIdentityCard());
             statement.setInt(5, patient.getId());
 
@@ -62,12 +66,13 @@ public class PatientModel implements PatientCRUDRepository {
     }
 
     @Override
-    public void deletePatient(int id) {
+    public void delete(Object object) {
         objConnection = ConfigurationDB.openConnection();
+        Patient patient = (Patient) object;
         try {
             String sql = "DELETE FROM paciente WHERE id = ?;";
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, patient.getId());
 
             statement.execute();
             System.out.println("The row was deleted successfully");
@@ -77,24 +82,25 @@ public class PatientModel implements PatientCRUDRepository {
     }
 
     @Override
-    public Patient findPatientById(int id) {
+    public Object find(Object object) {
         objConnection = ConfigurationDB.openConnection();
         Patient patient;
         try {
-            String sql = "SELECT * FROM paciente WHERE id_paciente = " + id + ";";
-            try (PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-                 ResultSet resultSet = statement.executeQuery()) {
+            String sql = "SELECT * FROM paciente WHERE id_paciente = ?;";
+            PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
+            statement.setInt(1, (int) object);
+            ResultSet resultSet = statement.executeQuery();
 
-                resultSet.next();
-                int patientId = resultSet.getInt("id_paciente");
-                String name = resultSet.getString("nombre");
-                String lastName = resultSet.getString("apellidos");
-                Date dateBirth = resultSet.getDate("fecha_nacimiento");
-                String identity_car = resultSet.getString("documento_identidad");
+            resultSet.next();
+            int patientId = resultSet.getInt("id_paciente");
+            String name = resultSet.getString("nombre");
+            String lastName = resultSet.getString("apellidos");
+            Date dateBirth = resultSet.getDate("fecha_nacimiento");
+            String identity_car = resultSet.getString("documento_identidad");
 
-                patient = new Patient(patientId, name, lastName, dateBirth, identity_car);
-            }
-            } catch (Exception e) {
+            patient = new Patient(patientId, name, lastName, dateBirth, identity_car);
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         ConfigurationDB.closeConnection();
@@ -102,7 +108,7 @@ public class PatientModel implements PatientCRUDRepository {
     }
 
     @Override
-    public List<Patient> findAll() {
+    public List<Object> findAll() {
         objConnection = ConfigurationDB.openConnection();
         List<Patient> patients = new ArrayList<>();
         try {
@@ -116,7 +122,7 @@ public class PatientModel implements PatientCRUDRepository {
                     Date dateBirth = resultSet.getDate("fecha_nacimiento");
                     String identity_car = resultSet.getString("documento_identidad");
 
-                    Patient patient = new Patient(id, name, lastName,dateBirth, identity_car);
+                    Patient patient = new Patient(id, name, lastName, dateBirth, identity_car);
                     patients.add(patient);
                 }
             }
@@ -125,6 +131,6 @@ public class PatientModel implements PatientCRUDRepository {
             throw new RuntimeException("Error: " + e.getMessage(), e);
         }
         ConfigurationDB.closeConnection();
-        return patients;
+        return Collections.singletonList(patients);
     }
 }

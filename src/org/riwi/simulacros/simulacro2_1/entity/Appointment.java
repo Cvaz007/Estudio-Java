@@ -1,5 +1,6 @@
 package org.riwi.simulacros.simulacro2_1.entity;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Appointment {
@@ -7,7 +8,7 @@ public class Appointment {
     private int doctorId;
     private int patientId;
     private Date date;
-    private Date time;
+    private Time time;
     private String reason;
     private Doctor doctor;
     private Patient patient;
@@ -15,7 +16,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int doctorId, int patientId, Date date, Date time, String reason) {
+    public Appointment(int doctorId, int patientId, Date date, Time time, String reason) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.date = date;
@@ -23,7 +24,7 @@ public class Appointment {
         this.reason = reason;
     }
 
-    public Appointment(int id, int doctorId, int patientId, Date date, Date time, String reason) {
+    public Appointment(int id, int doctorId, int patientId, Date date, Time time, String reason) {
         this.id = id;
         this.doctorId = doctorId;
         this.patientId = patientId;
@@ -32,7 +33,7 @@ public class Appointment {
         this.reason = reason;
     }
 
-    public Appointment(int id, int doctorId, int patientId, Date date, Date time, String reason, Doctor doctor, Patient patient) {
+    public Appointment(int id, int doctorId, int patientId, Date date, Time time, String reason, Doctor doctor, Patient patient) {
         this.id = id;
         this.doctorId = doctorId;
         this.patientId = patientId;
@@ -75,11 +76,11 @@ public class Appointment {
         this.date = date;
     }
 
-    public Date getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

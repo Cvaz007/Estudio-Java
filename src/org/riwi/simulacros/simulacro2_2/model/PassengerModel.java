@@ -93,10 +93,10 @@ public class PassengerModel implements CrudRepository {
         objConnection = ConfigurationDB.openConnection();
         Passenger passenger;
         try {
-            String sql = "SELECT * FROM passanger WHERE name LIKE ?;";
+            String sql = "SELECT * FROM passanger WHERE id = ?;";
 
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setString(1, "%"+object.toString()+"%");
+            statement.setInt(1, (int)object);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
 

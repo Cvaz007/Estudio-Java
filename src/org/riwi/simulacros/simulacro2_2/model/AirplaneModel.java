@@ -83,20 +83,20 @@ public class AirplaneModel implements CrudRepository {
     }
 
     @Override
-    public Object find(int id) {
+    public Object find(Object object) {
         objConnection = ConfigurationDB.openConnection();
         Airplane airplane;
         try {
             String sql = "SELECT * FROM airplane WHERE id = ?;";
 
             PreparedStatement statement = (PreparedStatement) objConnection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, (int) object);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             int capacity = resultSet.getInt("capacity");
             String model = resultSet.getString("model");
 
-            airplane = new Airplane(id, model, capacity);
+            airplane = new Airplane((int) object, model, capacity);
         } catch (Exception e) {
             ConfigurationDB.closeConnection();
             throw new RuntimeException(e);

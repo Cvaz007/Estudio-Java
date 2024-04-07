@@ -10,6 +10,8 @@ public class Flight {
     private Time time;
     private int airplaneId;
 
+    private Airplane airplane;
+
     public Flight() {
     }
 
@@ -68,6 +70,15 @@ public class Flight {
         this.airplaneId = airplaneId;
     }
 
+
+    public Airplane getAirplane() {
+        return airplane;
+    }
+
+    public void setAirplane(Airplane airplane) {
+        this.airplane = airplane;
+    }
+
     @Override
     public String toString() {
         return "Flight{" +
@@ -76,6 +87,7 @@ public class Flight {
                 ", start=" + start +
                 ", time=" + time +
                 ", airplaneId=" + airplaneId +
+                ", airplane=" + (airplane != null ? airplane.toString() : "") +
                 '}';
     }
 }

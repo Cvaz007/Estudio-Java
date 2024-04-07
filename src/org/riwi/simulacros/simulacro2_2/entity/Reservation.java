@@ -89,14 +89,14 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
+        return "\nReservation{" +
                 "id=" + id +
                 ", flightId=" + flightId +
                 ", passengerId=" + passengerId +
                 ", seat='" + seat + '\'' +
                 ", reservationDate=" + reservationDate +
-                ", passenger=" + passenger.toString() +
-                ", flight=" + flight.toString() +
+                ", passenger=" + (passenger != null ? passenger.toString() : "") +
+                ", flight=" + (flight != null ? flight.toString() : "") +
                 '}';
     }
 }

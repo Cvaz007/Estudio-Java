@@ -19,7 +19,7 @@ public class GenericController extends Utils {
     }
 
     public void get(CrudRepository model) {
-        Object id = JOptionPane.showInputDialog("\n¿which do you want to find?");
+        int id = Integer.parseInt(JOptionPane.showInputDialog("\n¿which do you want to find?"));
         JOptionPane.showMessageDialog(null, model.find(id).toString());
     }
 
